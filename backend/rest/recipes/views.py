@@ -4,56 +4,41 @@ from .serializers import RecipeSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework import generics, mixins
 
 
 # Get, create recipes
+class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin,
+                     mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
 
-class RecipeAPIView(APIView):
+    serializer_class = RecipeSerializer
+    queryset = Recipe.objects.all()
 
-    def get(self, request):
-        recipes = Recipe.objects.all()
-        serializer = RecipeSerializer(recipes, many=True) 
-        return Response(serializer.data)
 
+    def get(self, request, id=None):
+        if id:
+            return self.retrieve(request)
+        else:
+            return self.list(request)
 
     def post(self, request):
-        serializer = RecipeSerializer(data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        return self.create(request)
 
 
 
 # Get one, update, delete recipe
+class DetailsAPIView(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
 
-class RecipeDetails(APIView):
+    serializer_class = RecipeSerializer
+    queryset = Recipe.objects.all()
+    lookup_field = 'id'
 
-    def get_object(self, id):
-        try:
-            return Recipe.objects.get(id=id)
-
-        except Recipe.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
 
     def get(self, request, id):
-        recipe = self.get_object(id)
-
-        serializer = RecipeSerializer(recipe)
-        return Response(serializer.data)
+        return self.retrieve(request)
 
     def put(self, request, id):
-        recipe = self.get_object(id)
-
-        serializer = RecipeSerializer(recipe, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return self.update(request, id)
 
     def delete(self, request, id):
-        recipe = self.get_object(id)
-
-        recipe.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return self.destroy(request, id)
