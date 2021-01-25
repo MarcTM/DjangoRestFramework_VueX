@@ -1,25 +1,22 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from rest_framework.parsers import JSONParser
 from .models import Recipe
 from .serializers import RecipeSerializer
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
 
 
+# Get, create recipes
 
-# Get recipes, create recipe
+class RecipeAPIView(APIView):
 
-@api_view(['GET', 'POST'])
-def recipe_list(request):
-    if request.method == 'GET':
+    def get(self, request):
         recipes = Recipe.objects.all()
         serializer = RecipeSerializer(recipes, many=True) 
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+
+    def post(self, request):
         serializer = RecipeSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -29,27 +26,34 @@ def recipe_list(request):
 
 
 
-# Get one recipe, update recipe, delete recipe
+# Get one, update, delete recipe
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def recipe_details(request, id):
-    try:
-        recipe = Recipe.objects.get(pk=id)
+class RecipeDetails(APIView):
 
-    except Recipe.DoesNotExist:
-        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+    def get_object(self, id):
+        try:
+            return Recipe.objects.get(id=id)
 
-    if request.method == 'GET':
+        except Recipe.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, id):
+        recipe = self.get_object(id)
+
         serializer = RecipeSerializer(recipe)
         return Response(serializer.data)
-    
-    elif request.method == 'PUT':
+
+    def put(self, request, id):
+        recipe = self.get_object(id)
+
         serializer = RecipeSerializer(recipe, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, id):
+        recipe = self.get_object(id)
+
         recipe.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
