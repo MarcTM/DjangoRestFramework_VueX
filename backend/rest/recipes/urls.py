@@ -3,11 +3,11 @@ from .views import GenericAPIView, DetailsAPIView, RecipeViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('recipes', RecipeViewSet, basename='recipes')
+router.register('', RecipeViewSet, basename='recipes')
 
 urlpatterns = [
-    path('api/', include(router.urls)),
+    path('views', include(router.urls)),
 
-    path('recipes/', GenericAPIView.as_view()),
-    path('recipes/<int:id>', DetailsAPIView.as_view())
+    path('', GenericAPIView.as_view()),
+    path('<int:id>', DetailsAPIView.as_view())
 ]
