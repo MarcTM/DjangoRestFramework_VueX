@@ -29,8 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken',
-    'users',
+    'account',
     'recipes'
 ]
 
@@ -69,11 +68,7 @@ WSGI_APPLICATION = 'rest.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-
+    # Local
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'project',
@@ -83,6 +78,8 @@ DATABASES = {
         # 'PORT': '5432',
     }
 
+
+    # Docker
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     #     'NAME': 'postgres',
@@ -91,6 +88,10 @@ DATABASES = {
     #     'PORT': '5432',
     # }
 }
+
+
+# Custom user model
+AUTH_USER_MODEL = 'account.Account'
 
 
 # Password validation
