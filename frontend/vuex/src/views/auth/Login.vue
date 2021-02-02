@@ -21,29 +21,49 @@
   import { mapState } from "vuex";
   import { LOGIN } from "@/store/actions.type";
 
-  // export default class Login extends Vue {
-  export default {
-    name: "Login",
+  export default class Login extends Vue {
+ 
     data() {
       return {
         email: null,
         password: null
       };
-    },
-    methods: {
-      onSubmit(email: any, password: any) {
+    }
+
+    onSubmit(email: any, password: any) {
         console.log(email);
         console.log(password)
-        // this.$store
-        //   .dispatch(LOGIN, { email, password })
-        //   .then(() => this.$router.push({ name: "home" }));
-      }
-    },
-    computed: {
-      ...mapState({
-        errors: (state: any) => state.auth.errors
-      })
+        this.$store
+          .dispatch(LOGIN, { email, password })
+          // .then(() => this.$router.push({ name: "home" }));
+          .then(() => {console.log(email + password)})
     }
+
+
+
+  // export default {
+    // name: "Login",
+    // data() {
+    //   return {
+    //     email: null,
+    //     password: null
+    //   };
+    // },
+    // methods: {
+    //   onSubmit(email: any, password: any) {
+    //     console.log(email);
+    //     console.log(password)
+    //     this.$store
+    //       .dispatch(LOGIN, { email, password })
+    //       // .then(() => this.$router.push({ name: "home" }));
+    //       .then(() => {console.log(email + password)})
+    //   }
+    // },
+    // computed: {
+    //   ...mapState({
+    //     errors: (state: any) => state.auth.errors
+    //   })
+    // }
   }
 </script>
 

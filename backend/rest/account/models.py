@@ -6,7 +6,6 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
 
-
 class MyAccountManager(BaseUserManager):
     def create_user(self, email, username, password=None):
         if not email:
@@ -33,7 +32,6 @@ class MyAccountManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
-
 
 
 class Account(AbstractBaseUser):
