@@ -2,9 +2,9 @@
   <section class="login">
     <h1>SIGN IN</h1>
 
-      <form class="login-form" @submit.prevent="onSubmit(email, password)">
+      <form class="login-form" @submit.prevent="onSubmit(username, password)">
         <label>Email</label>
-        <input type="email" v-model="email" rerquired />
+        <input type="email" v-model="username" rerquired />
 
         <label>Password</label>
         <input type="password" v-model="password" required />
@@ -18,25 +18,23 @@
 
 <script lang="ts">
   import { Vue } from 'vue-class-component';
-  import { mapState } from "vuex";
+  // import { mapState } from "vuex";
   import { LOGIN } from "@/store/actions.type";
 
   export default class Login extends Vue {
  
     data() {
       return {
-        email: null,
+        username: null,
         password: null
       };
     }
 
-    onSubmit(email: any, password: any) {
-        console.log(email);
-        console.log(password)
+    onSubmit(username: any, password: any) {
         this.$store
-          .dispatch(LOGIN, { email, password })
-          // .then(() => this.$router.push({ name: "home" }));
-          .then(() => {console.log(email + password)})
+          .dispatch(LOGIN, { username, password })
+          .then(() => this.$router.push({ name: "Home" }))
+          // .then(() => {console.log(username + password)})
     }
 
 

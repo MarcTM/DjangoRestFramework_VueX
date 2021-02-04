@@ -1,46 +1,44 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import JwtService from "@/common/jwt.service";
 import { API_URL } from "@/common/config";
 
+
+const headers = {
+  "Authorization": `Token ${JwtService.getToken()}`,
+}
+
 const ApiService = {
   // Query
-  query(resource: any, params: any) {
+  query(resource: string, params: any) {
     return axios.get(resource, params).catch((error) => {
       throw new Error(`[RWV] ApiService ${error}`);
     });
   },
 
   // Get
-  get(resource: any, slug = "") {
+  get(resource: string, slug = "") {
     return axios.get(`${API_URL}/${resource}/${slug}`).catch((error) => {
       throw new Error(`[RWV] ApiService ${error}`)
     });
   },
 
   // Post
-  post(resource: any, params: any) {
-    axios.post('URL')
-      .then(function (response) {
-        alert (response.data);
-      })
-      .catch(function (error) {
-        alert(error);
-    });
-    return axios.post(`${resource}`, params);
+  post(resource: string, params: any) {
+    return axios.post(`${API_URL}/${resource}`, params);
   },
 
   // Update
-  update(resource: any, slug: any, params: any) {
+  update(resource: string, slug: string, params: any) {
     return axios.put(`${resource}/${slug}`, params);
   },
 
   // Put
-  put(resource: any, params: any) {
+  put(resource: string, params: any) {
     return axios.put(`${resource}`, params);
   },
 
   // Delete
-  delete(resource: any) {
+  delete(resource: string) {
     return axios.delete(resource).catch((error) => {
       throw new Error(`[RWV] ApiService ${error}`);
     });

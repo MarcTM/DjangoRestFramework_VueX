@@ -15,6 +15,7 @@ const state = {
   isAuthenticated: !!JwtService.getToken()
 };
 
+
 const getters = {
   currentUser(state: any) {
     return state.user;
@@ -24,17 +25,20 @@ const getters = {
   }
 };
 
+
 const actions = {
   // Login
   [LOGIN](context: any, credentials: any) {
     return new Promise(resolve => {
-      ApiService.post("users/login", { user: credentials })
+      ApiService.post("users/login", credentials)
         .then(({ data }) => {
-          context.commit(SET_AUTH, data.user);
+          console.log(data.token)
+          context.commit(SET_AUTH, data.token);
           resolve(data);
         })
         .catch(({ response }) => {
-          context.commit(SET_ERROR, response.data.errors);
+          console.log(response.data.non_field_errors);
+          context.commit(SET_ERROR, response.data.non_field_errors);
         });
     });
   },
@@ -47,7 +51,7 @@ const actions = {
   // Register
   [REGISTER](context: any, credentials: any) {
     return new Promise((resolve, reject) => {
-      ApiService.post("users", { user: credentials })
+      ApiService.post("users/register", { credentials })
         .then(({ data }) => {
           context.commit(SET_AUTH, data.user);
           resolve(data);
@@ -62,7 +66,6 @@ const actions = {
   // Check auth
   [CHECK_AUTH](context: any) {
     if (JwtService.getToken()) {
-      // ApiService.setHeader();
       ApiService.get("user")
         .then(({ data }: any) => {
           context.commit(SET_AUTH, data.user);
@@ -76,16 +79,17 @@ const actions = {
   }
 };
 
+
 const mutations = {
-  // Set error
+  // Set errors
   [SET_ERROR](state: any, error: any) {
     state.errors = error;
   },
 
   // Set auth
-  [SET_AUTH](state: any, user: any) {
+  [SET_AUTH](state: any, token: string) {
     state.isAuthenticated = true;
-    state.user = user;
+    state.user.token = token;
     state.errors = {};
     JwtService.saveToken(state.user.token);
   },
@@ -98,6 +102,7 @@ const mutations = {
     JwtService.destroyToken();
   }
 };
+
 
 export default {
   state,

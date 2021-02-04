@@ -2,18 +2,18 @@
   <section class="register">
     <h1>SIGN UP</h1>
 
-      <form class="register-form">
+      <form class="register-form" @submit.prevent="onSubmit(username, email, password, rpassword)">
         <label>Username</label>
-        <input type="text" rerquired />
-
+        <input type="text" v-model="username" rerquired />
+        
         <label>Email</label>
-        <input type="email" rerquired />
+        <input type="email" v-model="email" rerquired />
 
         <label>Password</label>
-        <input type="password" required />
+        <input type="password" v-model="password" rerquired />
 
         <label>Repeat Password</label>
-        <input type="password" required />
+        <input type="password" v-model="rpassword" required />
 
         <button class="register-button">SIGN UP</button>
       </form>
@@ -24,7 +24,27 @@
 
 <script lang="ts">
   import { Vue } from 'vue-class-component';
-  export default class Register extends Vue {}
+  import { REGISTER } from "@/store/actions.type";
+
+
+  export default class Register extends Vue {
+
+    data() {
+      return {
+        username: null,
+        email: null,
+        password: null
+      };
+    }
+
+    onSubmit(username: string, email: string, password: string, rpassword: string) {
+        this.$store
+          .dispatch(REGISTER, { username, email, password, rpassword })
+          // .then(() => this.$router.push({ name: "home" }));
+          // .then(() => {console.log(email + password)})
+    }
+
+  }
 </script>
 
 
