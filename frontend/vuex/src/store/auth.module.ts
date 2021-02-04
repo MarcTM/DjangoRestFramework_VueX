@@ -51,14 +51,14 @@ const actions = {
   // Register
   [REGISTER](context: any, credentials: any) {
     return new Promise((resolve, reject) => {
-      ApiService.post("users/register", { credentials })
+      ApiService.post("users/register", credentials)
         .then(({ data }) => {
-          context.commit(SET_AUTH, data.user);
           resolve(data);
         })
         .catch(({ response }) => {
-          context.commit(SET_ERROR, response.data.errors);
-          reject(response);
+          console.log(response)
+          // context.commit(SET_ERROR, response.data.errors);
+          // reject(response);
         });
     });
   },

@@ -40,8 +40,7 @@
     onSubmit(username: string, email: string, password: string, rpassword: string) {
         this.$store
           .dispatch(REGISTER, { username, email, password, rpassword })
-          // .then(() => this.$router.push({ name: "home" }));
-          // .then(() => {console.log(email + password)})
+          .then(() => this.$router.push({ name: "Login" }));
     }
 
   }
