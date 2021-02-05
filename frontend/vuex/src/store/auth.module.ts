@@ -17,11 +17,19 @@ const state = {
 
 
 const getters = {
+  // Current user
   currentUser(state: any) {
     return state.user;
   },
+
+  // Is authenticated
   isAuthenticated(state: any) {
     return state.isAuthenticated;
+  },
+
+  // Get errors
+  getErrors(state: any) {
+    return state.errors;
   }
 };
 
@@ -43,10 +51,12 @@ const actions = {
     });
   },
 
+
   // Logout
   [LOGOUT](context: any) {
     context.commit(PURGE_AUTH);
   },
+
 
   // Register
   [REGISTER](context: any, credentials: any) {
@@ -56,12 +66,12 @@ const actions = {
           resolve(data);
         })
         .catch(({ response }) => {
-          console.log(response)
-          // context.commit(SET_ERROR, response.data.errors);
-          // reject(response);
+          context.commit(SET_ERROR, response.data);
+          reject(response);
         });
     });
   },
+
 
   // Check auth
   [CHECK_AUTH](context: any) {

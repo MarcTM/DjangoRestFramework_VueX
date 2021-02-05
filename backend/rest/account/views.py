@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework import status
 from account.serializers import RegistrationSerializer
 from rest_framework.authtoken.models import Token
 
@@ -19,7 +20,7 @@ def registration_view(request):
             data['username'] = account.username
             token = Token.objects.get(user=account).key
             data['token'] = token
+
+            return Response(data)
         else:
-            data = serializer.errors
-            
-        return Response(data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -21,8 +21,8 @@
   // import { mapState } from "vuex";
   import { LOGIN } from "@/store/actions.type";
 
+
   export default class Login extends Vue {
- 
     data() {
       return {
         username: null,
@@ -30,38 +30,11 @@
       };
     }
 
-    onSubmit(username: any, password: any) {
+    onSubmit(username: string, password: string) {
         this.$store
           .dispatch(LOGIN, { username, password })
           .then(() => this.$router.push({ name: "Home" }))
-          // .then(() => {console.log(username + password)})
     }
-
-
-
-  // export default {
-    // name: "Login",
-    // data() {
-    //   return {
-    //     email: null,
-    //     password: null
-    //   };
-    // },
-    // methods: {
-    //   onSubmit(email: any, password: any) {
-    //     console.log(email);
-    //     console.log(password)
-    //     this.$store
-    //       .dispatch(LOGIN, { email, password })
-    //       // .then(() => this.$router.push({ name: "home" }));
-    //       .then(() => {console.log(email + password)})
-    //   }
-    // },
-    // computed: {
-    //   ...mapState({
-    //     errors: (state: any) => state.auth.errors
-    //   })
-    // }
   }
 </script>
 
