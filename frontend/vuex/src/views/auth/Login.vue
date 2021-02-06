@@ -17,24 +17,30 @@
 
 
 <script lang="ts">
-  import { Vue } from 'vue-class-component';
-  // import { mapState } from "vuex";
+  import {useStore} from 'vuex'
+  import store from '@/store';
   import { LOGIN } from "@/store/actions.type";
 
+  export default {
 
-  export default class Login extends Vue {
+    name: "Login",
+
     data() {
       return {
         username: null,
         password: null
       };
-    }
+    },
 
-    onSubmit(username: string, password: string) {
-        this.$store
-          .dispatch(LOGIN, { username, password })
-          .then(() => this.$router.push({ name: "Home" }))
-    }
+    methods: {
+        onSubmit(username: string, password: string): any {
+            store
+                .dispatch(LOGIN, { username, password })
+                .then((response) => {console.log(response)})
+                // .then(() => this.$router.push({ name: "Home" }))
+                .catch((error) => {console.log(error)})
+        }
+    },
   }
 </script>
 

@@ -11,21 +11,6 @@ from rest_framework import viewsets
 
 
 
-class RecipeViewSet(viewsets.ModelViewSet):
-
-    serializer_class = RecipeSerializer
-    queryset = Recipe.objects.all()
-
-
-
-# class RecipeViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin,
-#                     mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
-
-#     serializer_class = RecipeSerializer
-#     queryset = Recipe.objects.all()
-
-
-
 # class RecipeViewSet(viewsets.ViewSet):
 
 #     def list(self, request):
@@ -58,8 +43,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 
 # Get, create recipes
-class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin,
-                     mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
+class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
 
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
@@ -80,7 +64,7 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
 
 
 # Get one, update, delete recipe
-class DetailsAPIView(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
+class DetailsAPIView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
 
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()

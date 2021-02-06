@@ -24,47 +24,9 @@
 
 
 <script lang="ts">
-  import { Vue } from 'vue-class-component';
-  export default class Header extends Vue {}
-
-  // export default {
-  //   data () {
-  //     return {
-  //       loading: false,
-  //       post: null,
-  //       error: null
-  //     }
-  //   },
-  //   created () {
-  //     // fetch the data when the view is created and the data is
-  //     // already being observed
-  //     this.fetchData()
-  //   },
-  //   watch: {
-  //     // call again the method if the route changes
-  //     '$route': 'fetchData'
-  //   },
-  //   methods: {
-  //     fetchData () {
-  //       this.error = this.post = null
-  //       this.loading = true
-  //       const fetchedId = this.$route.params.id
-
-  //       getPost(fetchedId, (err, post) => {
-  //         if (this.$route.params.id !== fetchedId) return
-  //         this.loading = false
-  //         if (err) {
-  //           this.error = err.toString()
-  //         } else {
-  //           this.post = post
-  //         }
-  //       })
-  //     }
-  //   }
-  // }
-
-
-
+  export default {
+      name: "Header",
+  }
 </script>
 
 

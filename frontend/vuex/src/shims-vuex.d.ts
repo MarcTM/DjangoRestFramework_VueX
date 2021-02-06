@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import store from './store';
 
 declare module '@vue/runtime-core' {

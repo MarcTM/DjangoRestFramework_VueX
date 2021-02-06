@@ -23,42 +23,28 @@
 
 
 <script lang="ts">
-  import { Vue } from 'vue-class-component';
-  import { mapState } from 'vuex';
+  import store from '@/store';
   import { REGISTER } from "@/store/actions.type";
 
+  export default {
+    name: "Register",
 
-  export default class Register extends Vue {
     data() {
       return {
         username: null,
-        email: null,
-        password: null,
-        errors: "asiyg"
+        password: null
       };
-    }
+    },
 
-    get errors(): any {
-      return this.errors;
-    }
-
-    set errors(value) {
-      this.errors = value;
-    }
-
-    onSubmit(username: string, email: string, password: string, rpassword: string) {
-        this.$store
-          .dispatch(REGISTER, { username, email, password, rpassword })
-          .then(() => {
-            this.$router.push({ name: "Login" });
-          })
-          .catch((response: any) => {
-            console.log(response.data)
-            console.log(this.errors);
-          })
-    }
-
-    
+    methods: {
+        onSubmit(username: string, email: string, password: string, rpassword: string): any {
+          store
+            .dispatch(REGISTER, { username, email, password, rpassword })
+            .then((response: any) => {console.log(response)})
+            // .then(() => {this.$router.push({ name: "Login" })})
+            .catch((response: any) => {console.log(response.data)})
+        }
+    },
   }
 </script>
 
