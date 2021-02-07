@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     
     'account',
-    'recipes'
+    'meals'
 ]
 
 MIDDLEWARE = [
