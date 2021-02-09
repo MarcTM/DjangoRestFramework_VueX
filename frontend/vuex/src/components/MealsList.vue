@@ -1,20 +1,18 @@
 <template>
   <div class="meals-list">
-    MEALS LIST
-    <button @click="getMeals()">PROVA</button>
-    
-    <div v-for="meal in meals">
-        <MealPreview />
-    </div>
+        <div v-for="meal in meals">
+            <MealPreview v-bind:meal="meal" />
+        </div>
   </div>
 </template>
 
 
 
-<script lang="ts">
+<script>
 import MealPreview from '@/components/MealPreview.vue';
 import store from '@/store';
 import { GET_MEALS } from "@/store/actions.type";
+import { mapGetters } from "vuex";
 
 export default {
     name: 'MealsList',
@@ -23,29 +21,17 @@ export default {
         MealPreview
     },
 
-    data () {
-        return {
-            meals: [
-                {title: "primera"},
-                {title: "segona"}
-            ]
-        }
+    mounted() {
+        this.getMeals()
     },
 
-    beforeCreate() {
-        store
-            .dispatch(GET_MEALS)
-            .then((response: any) => {console.log(response)})
-            .catch((response: any) => {console.log(response)})
+    computed: {
+        ...mapGetters(["meals"]),
     },
 
     methods: {
         getMeals() {
-            console.log(store.getters.getMeals)
-            // store
-            //     .dispatch(GET_MEALS)
-            //     .then((response: any) => {console.log(response)})
-            //     .catch((response: any) => {console.log(response)})
+            this.$store.dispatch(GET_MEALS)
         }
     },
 };
@@ -53,5 +39,13 @@ export default {
 
 
 
-<style scoped>
+<style>
+.meals-list {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
 </style>

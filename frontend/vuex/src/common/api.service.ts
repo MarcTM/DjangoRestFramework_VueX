@@ -16,8 +16,8 @@ const ApiService = {
   },
 
   // Get
-  get(resource: string, slug = "") {
-    return axios.get(`${API_URL}/${resource}/${slug}`).catch((error) => {
+  get(resource: string) {
+    return axios.get(`${API_URL}/${resource}`).catch((error) => {
       throw new Error(`[RWV] ApiService ${error}`)
     });
   },

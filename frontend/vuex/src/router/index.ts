@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from '../views/auth/Login.vue';
-import Register from '../views/auth/Register.vue';
-import Shop from '../views/Shop.vue';
+import Home from '@/views/Home.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,17 +10,23 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/shop',
     name: 'Shop',
-    component: Shop
+    component: () => import('@/views/Shop.vue')
+  },
+  {
+    path: '/meal/:id',
+    name: 'Meal',
+    props: true,
+    component: () => import('@/views/Meal.vue')
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: () => import('@/views/auth/Login.vue')
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register
+    component: () => import('@/views/auth/Register.vue')
   },
   {
     path: "/:catchAll(.*)",
