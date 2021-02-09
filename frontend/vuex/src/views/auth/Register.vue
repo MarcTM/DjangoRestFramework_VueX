@@ -22,7 +22,7 @@
 
 
 
-<script lang="ts">
+<script>
   import store from '@/store';
   import { REGISTER } from "@/store/actions.type";
 
@@ -37,12 +37,14 @@
     },
 
     methods: {
-        onSubmit(username: string, email: string, password: string, rpassword: string): any {
+        onSubmit(username, email, password, rpassword) {
           store
             .dispatch(REGISTER, { username, email, password, rpassword })
-            .then((response: any) => {console.log(response)})
-            // .then(() => {this.$router.push({ name: "Login" })})
-            .catch((response: any) => {console.log(response.data)})
+            .then((response) => {
+              console.log(response);
+              this.$router.push({ name: "Login"});
+            })
+            .catch((response) => {console.log(response.data)})
         }
     },
   }
@@ -50,7 +52,7 @@
 
 
 
-<style>
+<style scoped>
   .register {
     display: flex;
     flex-direction: column;

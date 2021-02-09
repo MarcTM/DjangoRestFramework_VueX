@@ -39,7 +39,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 .meals-list {
     width: 100%;
     box-sizing: border-box;

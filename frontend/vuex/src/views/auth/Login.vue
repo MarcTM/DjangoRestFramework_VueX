@@ -16,9 +16,8 @@
 
 
 
-<script lang="ts">
+<script>
   import {useStore} from 'vuex'
-  import store from '@/store';
   import { LOGIN } from "@/store/actions.type";
 
   export default {
@@ -33,12 +32,12 @@
     },
 
     methods: {
-        onSubmit(username: string, password: string): any {
-            store
-                .dispatch(LOGIN, { username, password })
-                .then((response) => {console.log(response)})
-                // .then(() => this.$router.push({ name: "Home" }))
-                .catch((error) => {console.log(error)})
+        onSubmit(username, password) {
+            this.$store.dispatch(LOGIN, { username, password })
+            .then((response) => {
+              this.$router.push({ name: "Home"})
+            })
+            .catch((error) => {console.log(error)})
         }
     },
   }
@@ -46,7 +45,7 @@
 
 
 
-<style>
+<style scoped>
   .login {
     display: flex;
     flex-direction: column;

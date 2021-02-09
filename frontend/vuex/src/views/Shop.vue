@@ -20,7 +20,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 .shop {
   padding: 10px;
 }

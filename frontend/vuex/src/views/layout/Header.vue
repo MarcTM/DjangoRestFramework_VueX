@@ -6,9 +6,13 @@
         <h1>MARC</h1>
       </div>
 
-      <div class="top-header-nav">
+      <div v-if="!isAuthenticated" class="top-header-nav">
         <router-link to="/login">Login</router-link>
         <router-link to="/register">Register</router-link>
+      </div>
+
+      <div v-else class="top-header-nav">
+        <a @click="logout">Logout</a>
       </div>
     </nav>
 
@@ -23,15 +27,32 @@
 
 
 
-<script lang="ts">
-  export default {
-      name: "Header",
-  }
+<script>
+import { LOGOUT } from "@/store/actions.type";
+import { mapGetters } from "vuex";
+
+export default {
+    name: "Header",
+
+    mounted() {
+      (localStorage.getItem("token"))? this.authed = true : this.authed = false
+    },
+
+    computed: {
+        ...mapGetters(["isAuthenticated"]),
+    },
+
+    methods: {
+      logout() {
+        this.$store.dispatch(LOGOUT)
+      }
+    }
+}
 </script>
 
 
 
-<style>
+<style scoped>
   .header {
     background-color: aquamarine;
     display: flex;

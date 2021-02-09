@@ -38,7 +38,12 @@ export default {
   align-items: center;
 }
 
+.meal-image:hover + .meal-title {
+  color: #ef5555;
+}
+
 .meal-title {
+  transition: 0.4s;
   color: #3a3a3a;
   text-transform: capitalize;
   font-size: 1.2em;

@@ -20,6 +20,11 @@
         </div>
       </div>
     </div>
+
+    <div class="meal-description">
+        <h3>Description</h3>
+        <p>{{ meal.description }}</p>
+    </div>
   </div>
 </template>
 
@@ -66,15 +71,19 @@ export default {
 .meal-details {
   padding: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .meal-main {
   margin-top: 80px;
-  width: 60%;
+  width: 70%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  padding-bottom: 70px;
+  border-bottom: 1px solid grey;
 }
 
 .meal-image {
@@ -172,4 +181,18 @@ input[type="number"] {
   background-color: white;
 }
 
+.meal-description {
+  width: 65%;
+  margin-top: 30px;
+  margin-bottom: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.meal-description p {
+  margin-top: 10px;
+}
 </style>
