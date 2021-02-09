@@ -12,7 +12,7 @@
       </div>
 
       <div v-else class="top-header-nav">
-        <a @click="logout">Logout</a>
+        <a class="logout" @click="logout">Logout</a>
       </div>
     </nav>
 
@@ -66,6 +66,7 @@ export default {
 
   .header a {
     margin-left: 20px;
+    font-weight: bold;
   }
 
   .top-header {
@@ -74,6 +75,10 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 30px;
+  }
+
+  .top-header-logo {
+    cursor: pointer;
   }
 
   a, a:visited, a:active {
@@ -90,5 +95,9 @@ export default {
     width: 90%;
     font-weight: bold;
     text-transform: uppercase;
+  }
+
+  .logout {
+    cursor: pointer;
   }
 </style>

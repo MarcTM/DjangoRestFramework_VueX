@@ -28,6 +28,7 @@ export default {
 
 <style scoped>
 .meal-preview {
+  cursor: pointer;
   color: black;
   padding: 10px;
   margin: 10px;
@@ -36,6 +37,11 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.meal-preview:hover {
+  transition: 0.4s;
+    background-color: #eeefff;
 }
 
 .meal-image:hover + .meal-title {
