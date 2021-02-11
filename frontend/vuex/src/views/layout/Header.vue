@@ -34,10 +34,6 @@ import { mapGetters } from "vuex";
 export default {
     name: "Header",
 
-    mounted() {
-      (localStorage.getItem("token"))? this.authed = true : this.authed = false
-    },
-
     computed: {
         ...mapGetters(["isAuthenticated"]),
     },

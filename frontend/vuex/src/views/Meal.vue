@@ -154,6 +154,7 @@ input[type="number"] {
 }
 
 .more {
+  cursor: pointer;
   height: 40px;
   margin: 1px;
   border: 2px solid grey;
@@ -162,6 +163,7 @@ input[type="number"] {
 }
 
 .less {
+  cursor: pointer;
   height: 40px;
   margin: 1px;
   border: 2px solid grey;
