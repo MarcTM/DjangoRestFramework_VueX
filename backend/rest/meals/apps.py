@@ -1,4 +1,4 @@
 from django.apps import AppConfig
 
-class BasicConfig(AppConfig):
+class MealsConfig(AppConfig):
     name = 'meals'
