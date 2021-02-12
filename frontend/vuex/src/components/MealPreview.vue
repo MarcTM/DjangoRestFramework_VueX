@@ -2,7 +2,7 @@
   <div @click="details(meal.id)" class="meal-preview">
     <img class="meal-image" v-bind:src="meal.image" />
     <p class="meal-title">{{ meal.title }}</p>
-    <label class="meal-price">6.5 €</label>
+    <label class="meal-price">{{ meal.price }} €</label>
   </div>
 </template>
 
