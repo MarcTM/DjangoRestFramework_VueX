@@ -1,12 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category
-from .serializers import CategorySerializer
+from .serializers import CategorySerializer, CategoryMealsSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
 from rest_framework import viewsets
-
 
 
 # Get, create cateogries
@@ -26,11 +25,10 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
         return self.create(request)
 
 
-
 # Get category
 class DetailsAPIView(generics.GenericAPIView, mixins.RetrieveModelMixin):
 
-    serializer_class = CategorySerializer
+    serializer_class = CategoryMealsSerializer
     queryset = Category.objects.all()
     lookup_field = 'id'
 

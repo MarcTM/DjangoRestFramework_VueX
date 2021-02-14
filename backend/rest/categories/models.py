@@ -1,10 +1,11 @@
 from django.db import models
 from meals.models import Meal
 
+
 class Category(models.Model):
     title = models.CharField(max_length=100)
     image = models.CharField(max_length=200)
-    meals = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    meals = models.ManyToManyField(Meal)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

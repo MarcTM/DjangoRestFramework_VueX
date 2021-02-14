@@ -19,6 +19,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Meal.vue')
   },
   {
+    path: '/category/:id',
+    name: 'Category',
+    props: true,
+    component: () => import('@/views/Category.vue')
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/auth/Login.vue')

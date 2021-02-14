@@ -2,7 +2,7 @@
   <div class="home">
 
     <div class="categories">
-      <div v-for="category in categories" class="category">
+      <div v-for="category in categories" class="category" @click="getCategory(category.id)">
         <h2 class="category-title">{{ category.title }}</h2>
         <img class="category-image" v-bind:src="category.image" />
       </div>
@@ -32,6 +32,10 @@ export default defineComponent({
   methods: {
       getCategories() {
           this.$store.dispatch(GET_CATEGORIES).then((response) => console.log(response))
+      },
+
+      getCategory(id) {
+        this.$router.push({ name: "Category", params: {id: id}});
       }
   },
 });
