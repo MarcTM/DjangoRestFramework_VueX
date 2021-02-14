@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from account.serializers import RegistrationSerializer
 from rest_framework.authtoken.models import Token
+from .models import Account
 
 
 @api_view(['POST'])
@@ -24,3 +25,12 @@ def registration_view(request):
             return Response(data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def validate_token(request):
+
+    if request.method == 'GET':
+        user = request.user
+        if user:
+            return Response("Valid token")

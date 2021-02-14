@@ -4,7 +4,7 @@ import {
   LOGIN,
   LOGOUT,
   REGISTER,
-  CHECK_AUTH
+  VALIDATE
 } from "./actions.type";
 import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "./mutations.type";
 
@@ -50,12 +50,10 @@ const actions = {
     });
   },
 
-
   // Logout
   [LOGOUT](context: any) {
     context.commit(PURGE_AUTH);
   },
-
 
   // Register
   [REGISTER](context: any, credentials: any) {
@@ -71,16 +69,15 @@ const actions = {
     });
   },
 
-
   // Check auth
-  [CHECK_AUTH](context: any) {
+  [VALIDATE](context: any) {
     if (JwtService.getToken()) {
-      ApiService.get("user")
-        .then(({ data }: any) => {
+      ApiService.get("users/validate", false)
+        .then(({ data }) => {
           context.commit(SET_AUTH, data.user);
         })
         .catch(({ response }) => {
-          context.commit(SET_ERROR, response.data.errors);
+          context.commit(PURGE_AUTH);
         });
     } else {
       context.commit(PURGE_AUTH);

@@ -16,10 +16,16 @@ const ApiService = {
   },
 
   // Get
-  get(resource: string) {
-    return axios.get(`${API_URL}/${resource}`).catch((error) => {
-      throw new Error(`[RWV] ApiService ${error}`)
-    });
+  get(resource: string, context=false) {
+    if (context) {
+      return axios.get(`${API_URL}/${resource}`, {headers}).catch((error) => {
+        throw new Error(`[RWV] ApiService ${error}`)
+      });
+    } else {
+      return axios.get(`${API_URL}/${resource}`).catch((error) => {
+        throw new Error(`[RWV] ApiService ${error}`)
+      });
+    }
   },
 
   // Post

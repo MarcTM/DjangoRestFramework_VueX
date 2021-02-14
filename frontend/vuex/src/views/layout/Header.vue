@@ -29,17 +29,25 @@
 
 
 <script>
-import { LOGOUT } from "@/store/actions.type";
+import { LOGOUT, VALIDATE } from "@/store/actions.type";
 import { mapGetters } from "vuex";
 
 export default {
     name: "Header",
+
+    mounted() {
+        this.validate_token()
+    },
 
     computed: {
         ...mapGetters(["isAuthenticated"]),
     },
 
     methods: {
+      validate_token() {
+        this.$store.dispatch(VALIDATE)
+      },
+
       logout() {
         this.$store.dispatch(LOGOUT)
       }
