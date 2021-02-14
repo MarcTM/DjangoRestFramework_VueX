@@ -1,4 +1,15 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import store from '@/store';
+
+
+let noAuthGuard = (to: any, from: any, next: any) => {
+  (localStorage.getItem("token")) ? next("/") : next()
+}
+
+let authGuard = (to: any, from: any, next: any) => {
+  (!localStorage.getItem("token")) ? next("/login") : next()
+}
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -26,17 +37,20 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/auth/Login.vue')
+    component: () => import('@/views/auth/Login.vue'),
+    beforeEnter: noAuthGuard
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('@/views/auth/Register.vue')
+    component: () => import('@/views/auth/Register.vue'),
+    beforeEnter: noAuthGuard
   },
   {
     path: '/cart',
     name: 'Cart',
-    component: () => import('@/views/auth/Cart.vue')
+    component: () => import('@/views/auth/Cart.vue'),
+    beforeEnter: authGuard
   },
   {
     path: "/:catchAll(.*)",
