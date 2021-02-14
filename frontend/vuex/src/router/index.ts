@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '@/views/Home.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import('@/views/Home.vue')  
   },
   {
     path: '/shop',
@@ -33,6 +32,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/register',
     name: 'Register',
     component: () => import('@/views/auth/Register.vue')
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('@/views/auth/Cart.vue')
   },
   {
     path: "/:catchAll(.*)",

@@ -77,6 +77,7 @@
   }
 
   form input {
+    padding-left: 10px;
     width: 40%;
     height: 50px;
     margin-bottom: 40px;

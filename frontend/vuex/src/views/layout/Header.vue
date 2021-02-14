@@ -6,13 +6,14 @@
         <h1>MARC</h1>
       </div>
 
-      <div v-if="!isAuthenticated" class="top-header-nav">
+      <div class="top-header-nav" v-if="!isAuthenticated">
         <router-link to="/login">Login</router-link>
         <router-link to="/register">Register</router-link>
       </div>
 
       <div v-else class="top-header-nav">
         <a class="logout" @click="logout">Logout</a>
+        <router-link to="/cart"><img class="cart-header" src="../../assets/cart.png" /></router-link>
       </div>
     </nav>
 
@@ -61,6 +62,7 @@ export default {
   }
 
   .header a {
+    display: inline-block;
     margin-left: 20px;
     font-weight: bold;
   }
@@ -83,6 +85,8 @@ export default {
   }
 
   .top-header-nav {
+    display: flex;
+    align-items: center;
     text-transform: uppercase;
     text-align: right;
   }
@@ -95,5 +99,10 @@ export default {
 
   .logout {
     cursor: pointer;
+  }
+
+  .cart-header {
+    width: 100%;
+    height: 30px;
   }
 </style>

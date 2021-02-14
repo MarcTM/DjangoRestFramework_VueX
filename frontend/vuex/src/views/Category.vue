@@ -2,12 +2,16 @@
   <div class="category-page">
     <h2 class="category-title">{{ category.title }}</h2>
 
-    <div class="category-meals">
+    <div class="category-meals" v-if="category.meals">
         <div class="category-meal" v-for="meal in category.meals" @click="details(meal.id)">
             <img class="meal-image" v-bind:src="meal.image" />
             <p class="meal-title">{{ meal.title }}</p>
             <label class="meal-price">{{ meal.price }} €</label>
         </div>
+    </div>
+
+    <div class="category-meals-none" v-if="category.meals==''">
+    <h3>THIS CATEGORY HAS NO MEALS FOR THE MOMENT</h3>
     </div>
   </div>
 </template>
@@ -57,6 +61,7 @@ export default {
 }
 
 .category-title {
+    color: black;
     padding-left: 20px;
     text-align: left;
     width: 100%;
@@ -72,6 +77,16 @@ export default {
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.category-meals-none {
+    width: 100%;
+    text-align: center;
+}
+
+.category-meals-none h3 {
+  font-style: italic;
+  color: black;
 }
 
 .category-meal {
