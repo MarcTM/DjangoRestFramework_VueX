@@ -1,11 +1,7 @@
 import ApiService from "@/common/api.service";
 import JwtService from "@/common/jwt.service";
-import {
-  LOGIN,
-  LOGOUT,
-  REGISTER,
-  VALIDATE
-} from "./actions.type";
+import { resolveComponent } from "vue";
+import { LOGIN, LOGOUT, REGISTER, VALIDATE } from "./actions.type";
 import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "./mutations.type";
 
 
@@ -72,10 +68,7 @@ const actions = {
   // Check auth
   [VALIDATE](context: any) {
     if (JwtService.getToken()) {
-      ApiService.get("users/validate", false)
-        .then(({ data }) => {
-          context.commit(SET_AUTH, data.user);
-        })
+      ApiService.get("users/validate", true)
         .catch(({ response }) => {
           context.commit(PURGE_AUTH);
         });

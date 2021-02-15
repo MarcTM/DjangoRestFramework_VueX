@@ -20,7 +20,7 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
     # permission_classes = [IsAuthenticated]
 
 
-    def get(self, request, id=None):
+    def get(self, request):
         return self.list(request)
 
     def post(self, request):

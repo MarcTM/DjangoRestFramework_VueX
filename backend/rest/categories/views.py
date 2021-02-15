@@ -15,11 +15,8 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
     queryset = Category.objects.all()
 
 
-    def get(self, request, id=None):
-        if id:
-            return self.retrieve(request)
-        else:
-            return self.list(request)
+    def get(self, request):
+        return self.list(request)
 
     def post(self, request):
         return self.create(request)

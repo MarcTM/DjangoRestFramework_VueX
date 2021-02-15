@@ -4,9 +4,11 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from account.serializers import RegistrationSerializer
 from rest_framework.authtoken.models import Token
+from rest_framework import generics, mixins
 from .models import Account
 
 
+# Register user
 @api_view(['POST'])
 def registration_view(request):
 
@@ -27,6 +29,8 @@ def registration_view(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+# Validate token
 @api_view(['GET'])
 def validate_token(request):
 
@@ -34,3 +38,16 @@ def validate_token(request):
         user = request.user
         if user:
             return Response("Valid token")
+
+
+
+# Get user
+class UserAPIView(generics.GenericAPIView, mixins.RetrieveModelMixin):
+
+    serializer_class = RegistrationSerializer
+    queryset = Account.objects.all()
+    lookup_field = 'username'
+
+
+    def get(self, request, username):
+        return self.retrieve(request)
