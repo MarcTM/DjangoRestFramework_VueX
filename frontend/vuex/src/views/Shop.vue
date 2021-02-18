@@ -1,6 +1,6 @@
 <template>
   <div class="shop">
-    <h1>SHOP</h1>
+    <h1 class="shop--title">SHOP</h1>
     <MealsList />
   </div>
 </template>
@@ -23,6 +23,10 @@ export default {
 <style scoped>
 .shop {
   padding: 10px;
+}
+
+.shop--title {
+  color: black;
 }
 
 .shop h1 {

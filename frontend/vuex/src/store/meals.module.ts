@@ -17,7 +17,12 @@ const getters = {
 
   // Get meals
   meals(state: any) {
-    return state.meals;
+    return state.meals.results;
+  },
+
+  // Get total meals
+  meals_count(state: any) {
+    return state.meals.count;
   },
 
   // Get meal
@@ -34,6 +39,7 @@ const actions = {
     return new Promise(resolve => {
       ApiService.get("meals")
         .then(({ data }) => {
+          console.log(data)
           context.commit(SET_MEALS, data);
           resolve(data);
         })

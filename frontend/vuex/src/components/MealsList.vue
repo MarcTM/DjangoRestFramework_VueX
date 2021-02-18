@@ -3,6 +3,7 @@
         <div v-for="meal in meals">
             <MealPreview v-bind:meal="meal" />
         </div>
+        {{meals_count}}
   </div>
 </template>
 
@@ -27,6 +28,7 @@ export default {
 
     computed: {
         ...mapGetters(["meals"]),
+        ...mapGetters(["meals_count"])
     },
 
     methods: {

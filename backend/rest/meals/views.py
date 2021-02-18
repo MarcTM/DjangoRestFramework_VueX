@@ -8,6 +8,9 @@ from rest_framework import generics, mixins
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import ListAPIView
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 
 # Get, create meals
@@ -19,9 +22,6 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
     # authentication_classes = [TokenAuthentication]
     # permission_classes = [IsAuthenticated]
 
-
-    def get(self, request):
-        return self.list(request)
 
     def post(self, request):
         return self.create(request)
@@ -44,3 +44,11 @@ class DetailsAPIView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.
 
     def delete(self, request, id):
         return self.destroy(request, id)
+
+
+class ApiMealListView(ListAPIView):
+    queryset = Meal.objects.all()
+    serializer_class = MealSerializer
+    pagination_class = PageNumberPagination
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ('title', 'description')

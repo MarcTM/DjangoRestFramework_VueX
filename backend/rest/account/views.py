@@ -1,11 +1,11 @@
 from django.shortcuts import render
+from rest_framework import generics, mixins, status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status
-from account.serializers import RegistrationSerializer
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
-from rest_framework import generics, mixins
+from rest_framework.permissions import IsAuthenticated
 from .models import Account
+from .serializers import RegistrationSerializer, AccountProfileSerializer
 
 
 # Register user
@@ -42,12 +42,36 @@ def validate_token(request):
 
 
 # Get user
-class UserAPIView(generics.GenericAPIView, mixins.RetrieveModelMixin):
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def account_profile(request):
 
-    serializer_class = RegistrationSerializer
-    queryset = Account.objects.all()
-    lookup_field = 'username'
+    try:
+        account = request.user
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = AccountProfileSerializer(account)
+        return Response(serializer.data)
 
 
-    def get(self, request, username):
-        return self.retrieve(request)
+
+# Update user
+@api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
+def update_account_profile(request):
+
+    try:
+        account = request.user
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = AccountProfileSerializer(account, data=request.data)
+        data = {}
+        if serializer.is_valid():
+            serializer.save()
+            data['response'] = "Profile update success"
+            return Response(data=data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

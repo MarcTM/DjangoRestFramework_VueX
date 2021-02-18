@@ -1,13 +1,15 @@
 <template>
   <div class="home">
+    <div>
+      <h2 class="categories--title">CATEGORIES</h2>
 
-    <div class="categories">
-      <div v-for="category in categories" class="category" @click="getCategory(category.id)">
-        <h2 class="category-title">{{ category.title }}</h2>
-        <img class="category-image" v-bind:src="category.image" />
+      <div class="categories">
+        <div v-for="category in categories" class="category" @click="getCategory(category.id)">
+          <h2 class="category-title">{{ category.title }}</h2>
+          <img class="category-image" v-bind:src="category.image" />
+        </div>
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -20,6 +22,12 @@ import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: 'Home',
+
+  data () {
+    return {
+      value: 0
+    }
+  },
 
   mounted() {
       this.getCategories()
@@ -44,6 +52,15 @@ export default defineComponent({
 
 
 <style scoped>
+.categories--title {
+  width: 100%;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  margin-top: 100px;
+  margin-bottom: 0px;
+}
+
 .categories {
   width: 100%;
   box-sizing: border-box;
