@@ -1,14 +1,19 @@
 import ApiService from "@/common/api.service";
 import {
     GET_MEALS,
+    GET_MEALS_BY_SEARCH,
     GET_MEAL
 } from "./actions.type";
-import { SET_MEALS, SET_MEAL, SET_ERROR } from "./mutations.type";
+import {
+  SET_MEALS,
+  SET_MEAL,
+  SET_ERROR
+} from "./mutations.type";
 
 
 const state = {
   errors: null,
-  meals: [],
+  meals: {},
   meal: {}
 };
 
@@ -37,7 +42,21 @@ const actions = {
   // Login
   [GET_MEALS](context: any) {
     return new Promise(resolve => {
-      ApiService.get("meals")
+      ApiService.get("meals?page=2")
+        .then(({ data }) => {
+          console.log(data)
+          context.commit(SET_MEALS, data);
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          context.commit(SET_ERROR, response);
+        });
+    });
+  },
+
+  [GET_MEALS_BY_SEARCH](context: any, query: string) {
+    return new Promise(resolve => {
+      ApiService.query("meals", query)
         .then(({ data }) => {
           console.log(data)
           context.commit(SET_MEALS, data);

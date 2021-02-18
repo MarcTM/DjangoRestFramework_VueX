@@ -12,7 +12,7 @@ import {
 
 const state = {
   errors: null,
-  categories: [],
+  categories: {},
   category: {}
 };
 
@@ -21,7 +21,7 @@ const getters = {
 
   // Get categories
   categories(state: any) {
-    return state.categories;
+    return state.categories.results;
   },
 
   // Get category
