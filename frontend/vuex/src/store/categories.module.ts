@@ -21,7 +21,7 @@ const getters = {
 
   // Get categories
   categories(state: any) {
-    return state.categories.results;
+    return state.categories;
   },
 
   // Get category

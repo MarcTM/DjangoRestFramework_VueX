@@ -130,13 +130,13 @@ button:focus {
     height: 50px;
     border: 1px solid black;
     border-radius: 8px;
-    background-color: #ddddee;
+    background-color: #eeeeff;
     color: black;
 }
 
 .pagination-previous:hover {
     transition: 0.4s;
-    background-color: #cccccc;
+    background-color: #ddddee;
 }
 
 .pagination-next {
@@ -145,12 +145,12 @@ button:focus {
     height: 50px;
     border: 1px solid black;
     border-radius: 8px;
-    background-color: #ddddee;
+    background-color: #eeeeff;
     color: black;
 }
 
 .pagination-next:hover {
     transition: 0.4s;
-    background-color: #cccccc;
+    background-color: #ddddee;
 }
 </style>
