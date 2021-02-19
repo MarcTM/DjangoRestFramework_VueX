@@ -15,13 +15,10 @@
 </template>
 
 
-
 <script>
-  import {useStore} from 'vuex'
   import { LOGIN } from "@/store/actions.type";
 
   export default {
-
     name: "Login",
 
     data() {
@@ -42,7 +39,6 @@
     },
   }
 </script>
-
 
 
 <style scoped>

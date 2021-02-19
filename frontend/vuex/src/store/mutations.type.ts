@@ -5,3 +5,4 @@ export const SET_MEALS = "setMeals";
 export const SET_MEAL = "setMeal";
 export const SET_CATEGORIES = "setCategories";
 export const SET_CATEGORY = "setCategory";
+export const SET_PROFILE = "setProfile";

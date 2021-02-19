@@ -1,13 +1,24 @@
 import ApiService from "@/common/api.service";
 import JwtService from "@/common/jwt.service";
-import { resolveComponent } from "vue";
-import { LOGIN, LOGOUT, REGISTER, VALIDATE } from "./actions.type";
-import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "./mutations.type";
+import {
+  LOGIN,
+  LOGOUT,
+  REGISTER,
+  VALIDATE,
+  GET_PROFILE
+} from "./actions.type";
+import {
+  SET_AUTH,
+  PURGE_AUTH,
+  SET_ERROR,
+  SET_PROFILE
+} from "./mutations.type";
 
 
 const state = {
   errors: null,
   user: {},
+  profile: {},
   isAuthenticated: !!JwtService.getToken()
 };
 
@@ -26,6 +37,11 @@ const getters = {
   // Get errors
   getErrors(state: any) {
     return state.errors;
+  },
+
+  // Get profile
+  profile(state: any) {
+    return state.profile;
   }
 };
 
@@ -70,12 +86,27 @@ const actions = {
     if (JwtService.getToken()) {
       ApiService.get("users/validate", true)
         .catch(({ response }) => {
+          console.log(response);
           context.commit(PURGE_AUTH);
         });
     } else {
       context.commit(PURGE_AUTH);
     }
-  }
+  },
+
+  // Get proofile
+  [GET_PROFILE](context: any) {
+    return new Promise(resolve => {
+      ApiService.get("users/profile", true)
+        .then(({ data }) => {
+          context.commit(SET_PROFILE, data);
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          context.commit(SET_ERROR, response);
+        });
+    });
+  },
 };
 
 
@@ -99,7 +130,13 @@ const mutations = {
     state.user = {};
     state.errors = {};
     JwtService.destroyToken();
-  }
+  },
+
+  // Set profile
+  [SET_PROFILE](state: any, profile: any) {
+    state.profile = profile;
+    state.errors = {};
+  },
 };
 
 

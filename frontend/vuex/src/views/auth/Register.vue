@@ -21,10 +21,11 @@
 </template>
 
 
-
 <script>
   import store from '@/store';
-  import { REGISTER } from "@/store/actions.type";
+  import {
+    REGISTER
+  } from "@/store/actions.type";
 
   export default {
     name: "Register",
@@ -49,7 +50,6 @@
     },
   }
 </script>
-
 
 
 <style scoped>

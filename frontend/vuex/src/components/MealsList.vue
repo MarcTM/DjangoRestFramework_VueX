@@ -12,8 +12,8 @@
         </div>
 
         <div class="meals-pagination">
-            <button @click="previous" class="pagination-previous">PREVIOUS</button>
-            <button @click="next" class="pagination-next">NEXT</button>
+            <button @click="goPrevious" class="pagination-button pagination-previous">&#9001</button>
+            <button @click="goNext" class="pagination-button pagination-next">&#9002</button>
         </div>
   </div>
 </template>
@@ -23,7 +23,11 @@
 <script>
 import MealPreview from '@/components/MealPreview.vue';
 import store from '@/store';
-import { GET_MEALS, GET_MEALS_BY_SEARCH } from "@/store/actions.type";
+import {
+    GET_MEALS,
+    GET_MEALS_BY_SEARCH,
+    GET_MEALS_BY_PAGINATION
+} from "@/store/actions.type";
 import { mapGetters } from "vuex";
 
 export default {
@@ -38,8 +42,7 @@ export default {
     },
 
     computed: {
-        ...mapGetters(["meals"]),
-        ...mapGetters(["meals_count"])
+        ...mapGetters(["meals", "meals_count", "previous", "next"]),
     },
 
     methods: {
@@ -48,18 +51,17 @@ export default {
         },
 
         onSubmit(search) {
-            console.log(search);
-            (!search)
+            !search
             ? this.$store.dispatch(GET_MEALS)
-            : this.$store.dispatch(GET_MEALS_BY_SEARCH, `?search=${search}`)
+            : this.$store.dispatch(GET_MEALS_BY_SEARCH, `search=${search}`)
         },
 
-        previous() {
-            alert("previous")
+        goPrevious() {
+            this.previous && this.$store.dispatch(GET_MEALS_BY_PAGINATION, this.previous)
         },
 
-        next() {
-            alert("next")
+        goNext() {
+            this.next && this.$store.dispatch(GET_MEALS_BY_PAGINATION, this.next)
         }
     },
 };
@@ -98,16 +100,24 @@ export default {
     width: 80%;
     height: 50px;
     margin-right: 20px;
-
-    border: 1px solid black;
+    border: 1.5px solid black;
     padding: 5px 10px;
 }
 
-.search-meals button {
+.search-button {
     width: 20%;
-    border: 1px solid grey;
+    border: 1px solid black;
     background-color: black;
     color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    transition: 0.2s;
+    background-color: #111;
+    color: #bbb;
 }
 
 input:focus,
@@ -121,36 +131,23 @@ button:focus {
     margin: 50px 0px;
     width: 90%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-.pagination-previous {
-    width: 15%;
+.pagination-button {
+    font-weight: bold;
+    width: 4%;
     margin-right: 20px;
-    height: 50px;
+    height: 40px;
     border: 1px solid black;
-    border-radius: 8px;
-    background-color: #eeeeff;
-    color: black;
+    background-color: black;
+    color: white;
+    cursor: pointer;
 }
 
-.pagination-previous:hover {
-    transition: 0.4s;
-    background-color: #ddddee;
-}
-
-.pagination-next {
-    width: 15%;
-    margin-right: 20px;
-    height: 50px;
-    border: 1px solid black;
-    border-radius: 8px;
-    background-color: #eeeeff;
-    color: black;
-}
-
-.pagination-next:hover {
-    transition: 0.4s;
-    background-color: #ddddee;
+.pagination-button:hover {
+    transition: 0.2s;
+    background-color: #111;
+    color: #bbb;
 }
 </style>

@@ -9,12 +9,6 @@
 </template>
 
 
-
-<script>
-</script>
-
-
-
 <style scoped>
 .cart {
     display: flex;

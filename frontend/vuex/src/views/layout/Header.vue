@@ -12,6 +12,7 @@
       </div>
 
       <div v-else class="top-header-nav">
+        <router-link to="/account">Your account</router-link>
         <a class="logout" @click="logout">Logout</a>
         <router-link to="/cart"><img class="cart-header" src="../../assets/cart.png" /></router-link>
       </div>
@@ -20,16 +21,17 @@
     <nav class="main-nav">
       <router-link to="/home">Home</router-link>
       <router-link to="/shop">Shop</router-link>
-      <router-link to="/contact">Contact</router-link>
     </nav>
 
   </section>
 </template>
 
 
-
 <script>
-import { LOGOUT, VALIDATE } from "@/store/actions.type";
+import {
+  LOGOUT,
+  VALIDATE
+} from "@/store/actions.type";
 import { mapGetters } from "vuex";
 
 export default {
@@ -57,10 +59,10 @@ export default {
 </script>
 
 
-
 <style scoped>
   .header {
-    background-color: aquamarine;
+    color: black;
+    background-color: #eee;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -68,12 +70,19 @@ export default {
     width: 100%;
     box-sizing: border-box;
     padding: 20px 40px 40px 40px;
+    border-bottom: 1px solid #bbb;
   }
 
   .header a {
     display: inline-block;
     margin-left: 20px;
     font-weight: bold;
+  }
+
+  .header a:hover {
+    transition: 0.2s;
+    color: #222;
+    border-bottom: 0.8px solid #785fab;
   }
 
   .top-header {
