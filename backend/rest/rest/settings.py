@@ -14,7 +14,6 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -107,28 +106,28 @@ WSGI_APPLICATION = 'rest.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
     # Local
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'project',
-        'USER': 'marc',
-        # 'PASSWORD': '',
-        # 'HOST': '127.0.0.1',
-        # 'PORT': '5432',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'project',
+    #     'USER': 'marc',
+    #     # 'PASSWORD': '',
+    #     # 'HOST': '127.0.0.1',
+    #     # 'PORT': '5432',
+    # }
 
 
     # Docker
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'postgres',
-    #     'USER': 'postgres',
-    #     'HOST': 'db',
-    #     'PORT': '5432',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'project',
+        'USER': 'marc',
+        'PASSWORD': 'marc',
+        'HOST': 'postgresql',
+        'PORT': 5432,
+    }
+
 }
 
 
@@ -137,8 +136,6 @@ AUTH_USER_MODEL = 'account.Account'
 
 
 # Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -156,8 +153,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -170,6 +165,4 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 STATIC_URL = '/static/'

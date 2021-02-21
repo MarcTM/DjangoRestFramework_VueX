@@ -1,6 +1,6 @@
 <template>
   <section class="account">
-    <h1 class="account-title">YouR ACCOUNT</h1>
+    <h1 class="account-title">Your Account</h1>
 
     <div class="your-account">
     {{ profile.username }}

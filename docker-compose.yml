@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  postgresql:
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=project
+      - POSTGRES_USER=marc
+      - POSTGRES_PASSWORD=marc
+    networks:
+    - project
+
+  drf:
+    build: ./backend/rest/
+    command: python3 manage.py runserver
+    depends_on:
+      - postgresql
+    volumes:
+      - ./backend/rest:/rest
+    ports:
+      - "8000:8000"
+    networks:
+    - project
+
+    
+networks:
+  project:
