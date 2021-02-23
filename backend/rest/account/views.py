@@ -4,8 +4,10 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 from .models import Account
-from .serializers import RegistrationSerializer, AccountProfileSerializer
+from meals.models import Meal
+from .serializers import RegistrationSerializer, AccountProfileSerializer, AccountCartSerializer
 
 
 # Register user
@@ -75,3 +77,37 @@ def update_account_profile(request):
             data['response'] = "Profile update success"
             return Response(data=data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def get_cart(request, **kwargs):
+    
+    try:
+        account = request.user    
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = AccountCartSerializer(account)
+        return Response(serializer.data)
+
+
+
+@api_view(['POST', 'DELETE'])
+@permission_classes((IsAuthenticated,))
+def account_cart(request, **kwargs):
+    account = request.user
+
+    try:
+        meal = Meal.objects.get(id=kwargs.get('id'))
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'POST':
+        account.add_to_cart(meal)
+    
+    elif request.method == 'DELETE':
+        account.remove_from_cart(meal)

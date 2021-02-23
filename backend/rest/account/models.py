@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
+from meals.models import Meal
 
 
 class MyAccountManager(BaseUserManager):
@@ -34,11 +35,14 @@ class MyAccountManager(BaseUserManager):
         return user
 
 
+
 class Account(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
     username = models.CharField(max_length=30, unique=True)
     created_at = models.DateTimeField(verbose_name="created at", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="last login", auto_now_add=True)
+
+    meals = models.ManyToManyField(Meal, null=True)
 
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -57,8 +61,14 @@ class Account(AbstractBaseUser):
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
-    def has_module_perms(elf, app_label):
+    def has_module_perms(self, app_label):
         return True
+
+    def add_to_cart(self, meal):
+        self.meals.add(meal)
+
+    def remove_from_cart(self, meal):
+        self.meals.remove(meal)
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

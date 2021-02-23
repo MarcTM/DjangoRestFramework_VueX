@@ -108,25 +108,25 @@ WSGI_APPLICATION = 'rest.wsgi.application'
 # Database
 DATABASES = {
     # Local
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'project',
-    #     'USER': 'marc',
-    #     # 'PASSWORD': '',
-    #     # 'HOST': '127.0.0.1',
-    #     # 'PORT': '5432',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'project',
+        'USER': 'marc',
+        # 'PASSWORD': '',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '5432',
+    }
 
 
     # Docker
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'project',
-        'USER': 'marc',
-        'PASSWORD': 'marc',
-        'HOST': 'postgresql',
-        'PORT': 5432,
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'project',
+    #     'USER': 'marc',
+    #     'PASSWORD': 'marc',
+    #     'HOST': 'postgresql',
+    #     'PORT': 5432,
+    # }
 
 }
 

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from account.models import Account
+from .models import Account
+from meals.serializers import MealSerializer
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -34,3 +35,11 @@ class AccountProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ['id', 'email', 'username']
+
+
+class AccountCartSerializer(serializers.ModelSerializer):
+    meals = MealSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Account
+        fields = ['id', 'email', 'meals']

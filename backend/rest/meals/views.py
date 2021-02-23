@@ -18,9 +18,6 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
 
     serializer_class = MealSerializer
     queryset = Meal.objects.all()
-    # authentication_classes = [SessionAuthentication, BasicAuthentication]
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
 
 
     def post(self, request):
@@ -47,6 +44,7 @@ class DetailsAPIView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.
 
 
 class ApiMealListView(ListAPIView):
+    
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
     pagination_class = PageNumberPagination
