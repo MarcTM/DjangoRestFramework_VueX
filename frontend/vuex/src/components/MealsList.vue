@@ -77,7 +77,7 @@ export default {
     align-items: center;
 }
 
-.meals-list .meals {
+.meals {
     width: 100%;
     box-sizing: border-box;
     padding: 10px;

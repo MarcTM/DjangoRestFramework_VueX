@@ -5,13 +5,15 @@ import {
   LOGOUT,
   REGISTER,
   VALIDATE,
-  GET_PROFILE
+  GET_PROFILE,
+  GET_CART
 } from "./actions.type";
 import {
   SET_AUTH,
   PURGE_AUTH,
   SET_ERROR,
-  SET_PROFILE
+  SET_PROFILE,
+  SET_CART
 } from "./mutations.type";
 
 
@@ -19,6 +21,7 @@ const state = {
   errors: null,
   user: {},
   profile: {},
+  cart: {},
   isAuthenticated: !!JwtService.getToken()
 };
 
@@ -42,6 +45,11 @@ const getters = {
   // Get profile
   profile(state: any) {
     return state.profile;
+  },
+
+  // Get cart
+  cart(state: any) {
+    return state.cart;
   }
 };
 
@@ -94,12 +102,27 @@ const actions = {
     }
   },
 
-  // Get proofile
+  // Get profile
   [GET_PROFILE](context: any) {
     return new Promise(resolve => {
       ApiService.get("users/profile", true)
         .then(({ data }) => {
           context.commit(SET_PROFILE, data);
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          context.commit(SET_ERROR, response);
+        });
+    });
+  },
+
+  // Get cart
+  [GET_CART](context: any) {
+    return new Promise(resolve => {
+      ApiService.get("users/cart", true)
+        .then(({ data }) => {
+          console.log(data);
+          context.commit(SET_CART, data);
           resolve(data);
         })
         .catch(({ response }) => {
@@ -135,6 +158,12 @@ const mutations = {
   // Set profile
   [SET_PROFILE](state: any, profile: any) {
     state.profile = profile;
+    state.errors = {};
+  },
+
+  //  Set cart
+  [SET_CART](state: any, cart: any) {
+    state.cart = cart;
     state.errors = {};
   },
 };
