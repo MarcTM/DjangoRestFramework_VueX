@@ -133,6 +133,11 @@ img {
   color: black;
 }
 
+.remove-from-cart:hover {
+  transition: 0.3s;
+  background-color: #009900;
+}
+
 .no_cart {
   text-align: center;
   margin-top: 70px;

@@ -3,10 +3,11 @@
     <h2 class="category-title">{{ category.title }}</h2>
 
     <div class="category-meals" v-if="category.meals">
-        <div class="category-meal" v-for="meal in category.meals" @click="details(meal.id)">
-            <img class="meal-image" v-bind:src="meal.image" />
-            <p class="meal-title">{{ meal.title }}</p>
-            <label class="meal-price">{{ meal.price }} €</label>
+        <div class="category-meal" v-for="meal in category.meals">
+            <img @click="details(meal.id)" class="meal-image" v-bind:src="meal.image" />
+            <p @click="details(meal.id)" class="meal-title">{{ meal.title }}</p>
+            <label @click="details(meal.id)" class="meal-price">{{ meal.price }} €</label>
+            <button @click="add_to_cart(meal.id)" class="add-to-cart">ADD TO CART</button>
         </div>
     </div>
 
@@ -21,7 +22,10 @@
 <script>
 import store from "@/store";
 import { mapGetters } from "vuex";
-import { GET_CATEGORY } from "@/store/actions.type";
+import {
+  GET_CATEGORY,
+  ADD_CART
+} from "@/store/actions.type";
 
 export default {
   name: 'Meal',
@@ -44,6 +48,10 @@ export default {
   methods: {
     details(id) {
       this.$router.push({ name: "Meal", params: {id: id}});
+    },
+
+    add_to_cart(id) {
+      store.dispatch(ADD_CART, id);
     }
   }
 };
@@ -125,5 +133,21 @@ export default {
 img {
   width: 90%;
   height: 200px;
+}
+
+.add-to-cart {
+  width: 80%;
+  height: 40px;
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  margin-top: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.add-to-cart:hover {
+  transition: 0.3s;
+  background-color: #009900;
 }
 </style>

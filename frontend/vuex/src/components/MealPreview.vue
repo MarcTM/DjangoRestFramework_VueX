@@ -84,4 +84,9 @@ img {
   font-weight: bold;
   cursor: pointer;
 }
+
+.add-to-cart:hover {
+  transition: 0.3s;
+  background-color: #009900;
+}
 </style>
