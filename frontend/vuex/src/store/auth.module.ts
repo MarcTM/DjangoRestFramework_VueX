@@ -6,7 +6,9 @@ import {
   REGISTER,
   VALIDATE,
   GET_PROFILE,
-  GET_CART
+  GET_CART,
+  ADD_CART,
+  REMOVE_CART
 } from "./actions.type";
 import {
   SET_AUTH,
@@ -128,6 +130,23 @@ const actions = {
         .catch(({ response }) => {
           context.commit(SET_ERROR, response);
         });
+    });
+  },
+
+  // Get cart
+  [ADD_CART](context: any, id: number) {
+    return new Promise(resolve => {
+      ApiService.post("users/cart/" + id, {}, true)
+    });
+  },
+
+  // Get cart
+  [REMOVE_CART](context: any, id: number) {
+    return new Promise(resolve => {
+      ApiService.delete("users/cart/" + id, true)
+        .then(({ data }) => {
+          resolve(data);
+        })
     });
   },
 };

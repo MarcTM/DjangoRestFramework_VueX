@@ -29,25 +29,31 @@ const ApiService = {
   },
 
   // Post
-  post(resource: string, params: any) {
-    return axios.post(`${API_URL}/${resource}`, params);
+  post(resource: string, params: any, context=false) {
+    if (context) {
+      return axios.post(`${API_URL}/${resource}`, params, {headers});
+    } else {
+      return axios.post(`${API_URL}/${resource}`, params);
+    }
   },
 
   // Update
   update(resource: string, slug: string, params: any) {
-    return axios.put(`${resource}/${slug}`, params);
+    return axios.put(`${API_URL}/${resource}/${slug}`, params);
   },
 
   // Put
   put(resource: string, params: any) {
-    return axios.put(`${resource}`, params);
+    return axios.put(`${API_URL}/${resource}`, params);
   },
 
   // Delete
-  delete(resource: string) {
-    return axios.delete(resource).catch((error) => {
-      throw new Error(`[RWV] ApiService ${error}`);
-    });
+  delete(resource: string, context=false) {
+    if (context) {
+      return axios.delete(`${API_URL}/${resource}`, {headers})
+    } else {
+      return axios.delete(`${API_URL}/${resource}`);
+    }
   }
 };
 

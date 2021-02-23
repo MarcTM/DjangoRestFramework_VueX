@@ -108,6 +108,8 @@ def account_cart(request, **kwargs):
 
     if request.method == 'POST':
         account.add_to_cart(meal)
+        return Response("OK")
     
     elif request.method == 'DELETE':
         account.remove_from_cart(meal)
+        return Response("OK")

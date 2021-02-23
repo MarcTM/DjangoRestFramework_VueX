@@ -1,14 +1,19 @@
 <template>
-  <div @click="details(meal.id)" class="meal-preview">
-    <img class="meal-image" v-bind:src="meal.image" />
-    <p class="meal-title">{{ meal.title }}</p>
-    <label class="meal-price">{{ meal.price }} €</label>
+  <div class="meal-preview">
+    <img @click="details(meal.id)" class="meal-image" v-bind:src="meal.image" />
+    <p @click="details(meal.id)" class="meal-title">{{ meal.title }}</p>
+    <label @click="details(meal.id)" class="meal-price">{{ meal.price }} €</label>
+    <button @click="remove_from_cart(meal.id)" class="add-to-cart">ADD TO CART</button>
   </div>
 </template>
 
 
 
 <script>
+import {
+    ADD_CART
+} from "@/store/actions.type";
+
 export default {
     name: 'MealPreview',
 
@@ -19,6 +24,10 @@ export default {
     methods: {
       details(id) {
         this.$router.push({ name: "Meal", params: {id: id}});
+      },
+
+      remove_from_cart(id) {
+          this.$store.dispatch(ADD_CART, id)
       }
     }
 }
@@ -63,5 +72,16 @@ export default {
 img {
   width: 90%;
   height: 200px;
+}
+
+.add-to-cart {
+  width: 80%;
+  height: 40px;
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  margin-top: 20px;
+  font-weight: bold;
+  cursor: pointer;
 }
 </style>

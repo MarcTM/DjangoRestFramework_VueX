@@ -2,16 +2,17 @@
   <section class="cart">
     <h1 class="cart-title">YOUR CART</h1>
 
-    <div v-if="cart.meals" class="your-cart">
-      <div v-for="meal in cart.meals" @click="details(meal.id)" class="cart-product">
-        <img class="meal-image" v-bind:src="meal.image" />
-        <p class="meal-title">{{ meal.title }}</p>
-        <label class="meal-price">{{ meal.price }} €</label>
+    <div v-if="cart.meals!=''" class="your-cart">
+      <div v-for="meal in cart.meals" class="cart-product">
+        <img @click="details(meal.id)" class="meal-image" v-bind:src="meal.image" />
+        <p @click="details(meal.id)" class="meal-title">{{ meal.title }}</p>
+        <label @click="details(meal.id)" class="meal-price">{{ meal.price }} €</label>
+        <button @click="remove_from_cart(meal.id)" class="remove-from-cart">REMOVE FROM CART</button>
       </div>
     </div>
 
     <div v-else>
-      <h1>NOTHING IN YOUR CART</h1>
+      <h1 class="no_cart">NOTHING IN YOUR CART</h1>
     </div>
 
   </section>
@@ -20,7 +21,8 @@
 
 <script>
 import {
-    GET_CART
+    GET_CART,
+    REMOVE_CART
 } from "@/store/actions.type";
 import { mapGetters } from 'vuex';
 
@@ -42,6 +44,13 @@ export default {
 
       details(id) {
         this.$router.push({ name: "Meal", params: {id: id}});
+      },
+
+      remove_from_cart(id) {
+        this.$store.dispatch(REMOVE_CART, id)
+        .then((response) => {
+          this.$store.dispatch(GET_CART);
+        })
       }
   },
 }
@@ -50,9 +59,11 @@ export default {
 
 <style scoped>
 .cart {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    box-sizing: border-box;
     padding: 50px;
 }
 
@@ -110,5 +121,22 @@ export default {
 img {
   width: 90%;
   height: 200px;
+}
+
+.remove-from-cart {
+  height: 40px;
+  width: 100%;
+  border: 2px solid black;
+  margin-top: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+}
+
+.no_cart {
+  text-align: center;
+  margin-top: 70px;
+  text-decoration: underline;
+  color: #007000;
 }
 </style>

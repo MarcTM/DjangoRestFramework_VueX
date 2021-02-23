@@ -10,3 +10,5 @@ export const GET_CATEGORIES = "getCategories";
 export const GET_CATEGORY = "getCategory";
 export const GET_PROFILE = "getProfile";
 export const GET_CART = "getCart";
+export const ADD_CART = "addCart";
+export const REMOVE_CART = "removeCart";
